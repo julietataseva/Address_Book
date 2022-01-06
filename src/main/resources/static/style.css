@@ -1,0 +1,102 @@
+h1{
+    margin-bottom: 1.5rem;
+}
+
+/* Header */
+
+.dropdown-menu {
+    width: 280px !important;
+    margin-top: 9px;
+    padding: 15px; 
+    padding-bottom: 10px;
+}
+
+/* Contacts Table */
+
+.contacts-table-div{
+    padding: 60px 0px;
+}
+
+.contacts-title{
+    margin: 20px 0px;
+    text-align: center;
+}
+
+/* Login page */
+
+.login-page-div{
+    max-width: 420px;
+    margin-top: 3rem !important;
+    padding: 3rem 1.5rem;
+}
+
+#signInButton{
+    width: 75%;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Registration page */
+
+.registration-page-div{
+    max-width: 420px;
+    margin-top: 3rem !important;
+    padding: 3rem 1.5rem;
+}
+
+
+#registrationButton{
+    width: 75%;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contact Page */
+
+.contact-page-div{
+    max-width: 700px;
+    padding: 80px 0px;
+
+}
+
+.color-label{
+    margin:auto;
+    padding: 0px;
+}
+
+.color-label > span{
+    border-radius: 0%; 
+    padding: 7px;
+    margin-bottom: 0px;
+}
+
+.color-label > span > h6{
+    margin-bottom: 0px;
+}
+
+/* Add Contact Page */
+
+.remove{
+    padding: 0px 2px;
+}
+
+.btn-addContact{
+    margin-top: 1rem;
+}
+
+/* My Profile Page */
+
+.myProfile-page-div{
+    max-width: 800px;
+    margin-top: 3.5rem;
+
+}
+
+/* Edit My Profile Page */
+
+.editMyProfile-page-div{
+    max-width: 700px;
+    margin-top: 3.5rem;
+}
