@@ -11,7 +11,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID != null}">
                 <a class="nav-link" href="#">My Contacts</a>
             </li>
             <li class="nav-item">
@@ -20,33 +20,23 @@
 
         </ul>
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID != null}">
                 <a class="nav-link" href="#">My Profile</a>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Login
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <form class="form-horizontal " method="post" accept-charset="UTF-8">
-                        <input class="form-control login" type="text" name="username"
-                               placeholder="Username.."><br>
-                        <input class="form-control login" type="password" name="password"
-                               placeholder="Password.."><br>
-                        <input class="btn btn-primary" type="submit" name="submit" value="Login">
-                    </form>
-                </div>
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID == null}">
+                <a class="nav-link" href="/login">Login</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#">Register</a>
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID == null}">
+                <a class="nav-link" href="/register">Register</a>
             </li>
 
+            <form id="logoutForm" method="post" action="/logout" th:if="${session.LOGGED_USER_ID != null}">
             <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="javascript:$('#logoutForm').submit();" value="Logout" >Logout</a>
             </li>
+            </form>
         </ul>
     </div>
 </nav>
