@@ -4,9 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
 
     <title>Address Book</title>
 
@@ -33,43 +32,66 @@
                     <th scope="col" class="d-none d-md-table-cell">Comment</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="table-primary">
-                    <th scope="row">1</th>
-                    <td>Mario</td>
-                    <td>Ivanov</td>
-                    <td class="d-none d-lg-table-cell">Twitter</td>
-                    <td class="d-none d-md-table-cell">028742135</td>
-                    <td class="d-none d-sm-table-cell">mario@mail.bg</td>
-                    <td>0877794849</td>
-                    <td class="d-none d-md-table-cell">Comment</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Ivan</td>
-                    <td>Ivanov</td>
-                    <td class="d-none d-lg-table-cell">Apple</td>
-                    <td class="d-none d-md-table-cell">028742135</td>
-                    <td class="d-none d-sm-table-cell">ivan@mail.bg</td>
-                    <td>0877794849</td>
-                    <td class="d-none d-md-table-cell">Comment</td>
-                </tr>
-                <tr class="table-warning">
-                    <th scope="row">3</th>
-                    <td>Peter</td>
-                    <td>Petrov</td>
-                    <td class="d-none d-lg-table-cell">Microsoft</td>
-                    <td class="d-none d-md-table-cell">028742135</td>
-                    <td class="d-none d-sm-table-cell">peter@mail.bg</td>
-                    <td>0877794849</td>
-                    <td class="d-none d-md-table-cell">Comment</td>
-                </tr>
+            <tbody >
+            <th:block th:each="contact : ${contacts}">
+            <tr th:classappend="${contact.label}" th:onclick="|window.location.href='/contactPage?id=${contact.id}'|">
+                <th scope="row" th:text="${contact.id}">3</th>
+                <td th:text="${contact.firstName}">Peter</td>
+                <td th:text="${contact.lastName}">Petrov</td>
+                <td class="d-none d-lg-table-cell" th:text="${contact.companyName}">Microsoft</td>
+                <td class="d-none d-md-table-cell" th:text="${contact.phoneNumber}">028742135</td>
+                <td class="d-none d-sm-table-cell" th:text="${contact.email}">peter@mail.bg</td>
+                <td th:text="${contact.mobilePhoneNumber}">0877794849</td>
+                <td class="d-none d-md-table-cell" th:text="${contact.comment}">Comment</td>
+            </tr>
+            </th:block>
+<!--                <tr class="table-primary">-->
+<!--                    <th scope="row">1</th>-->
+<!--                    <td>Mario</td>-->
+<!--                    <td>Ivanov</td>-->
+<!--                    <td class="d-none d-lg-table-cell">Twitter</td>-->
+<!--                    <td class="d-none d-md-table-cell">028742135</td>-->
+<!--                    <td class="d-none d-sm-table-cell">mario@mail.bg</td>-->
+<!--                    <td>0877794849</td>-->
+<!--                    <td class="d-none d-md-table-cell">Comment</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">2</th>-->
+<!--                    <td>Ivan</td>-->
+<!--                    <td>Ivanov</td>-->
+<!--                    <td class="d-none d-lg-table-cell">Apple</td>-->
+<!--                    <td class="d-none d-md-table-cell">028742135</td>-->
+<!--                    <td class="d-none d-sm-table-cell">ivan@mail.bg</td>-->
+<!--                    <td>0877794849</td>-->
+<!--                    <td class="d-none d-md-table-cell">Comment</td>-->
+<!--                </tr>-->
+<!--                <tr class="table-warning">-->
+<!--                    <th scope="row">3</th>-->
+<!--                    <td>Peter</td>-->
+<!--                    <td>Petrov</td>-->
+<!--                    <td class="d-none d-lg-table-cell">Microsoft</td>-->
+<!--                    <td class="d-none d-md-table-cell">028742135</td>-->
+<!--                    <td class="d-none d-sm-table-cell">peter@mail.bg</td>-->
+<!--                    <td>0877794849</td>-->
+<!--                    <td class="d-none d-md-table-cell">Comment</td>-->
+<!--                </tr>-->
+<!--                <tr class="table-warning">-->
+<!--                    <th scope="row">3</th>-->
+<!--                    <td>Peter</td>-->
+<!--                    <td>Petrov</td>-->
+<!--                    <td class="d-none d-lg-table-cell">Microsoft</td>-->
+<!--                    <td class="d-none d-md-table-cell">028742135</td>-->
+<!--                    <td class="d-none d-sm-table-cell">peter@mail.bg</td>-->
+<!--                    <td>0877794849</td>-->
+<!--                    <td class="d-none d-md-table-cell">Comment</td>-->
+<!--                </tr>-->
             </tbody>
+
         </table>
 
         <div class="text-center">
 
-            <a class="btn btn-primary">Add Contact</a>
+            <a class="btn btn-primary" href="/addContact">Add Contact</a>
         </div>
 
 

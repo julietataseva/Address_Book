@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
 
     <title>Address Book</title>
 
@@ -16,94 +16,101 @@
     <header th:insert="navigation :: header"></header>
 
     <div class="container contact-page-div shadow-lg">
-        <h1 class="text-center" th:text="${contact.firstName + ' ' + contact.lastName}">Peter Petrov</h1>
+        <h1 class="text-center" >Edit Page</h1>
         <div class="col-md-12 col-sm-12 col-12">
             <div class="card h-100">
                 <div class="card-body">
+                    <form th:action="@{/contacts/edit(id=${contact.id})}" method="POST">
                     <div class="row gutters">
 
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">First Name</h6>
+                                <input type="text" class="form-control" name="firstName" th:value="${contact.firstName}" minlength="1" maxlength="45" required>
 
-                                <h6 th:text="${contact.firstName}">Peter</h6>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Last Name</h6>
 
-                                <h6 th:text="${contact.lastName}">Petrov</h6>
+                                <input type="text" class="form-control" name="lastName" th:value="${contact.lastName}" minlength="1" maxlength="45" required>
 
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Phone</h6>
-                                <h6 th:text="${contact.phoneNumber}">02873416</h6>
+                                <input type="text" class="form-control" name="phoneNumber" th:value="${contact.phoneNumber}" minlength="1" maxlength="45" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary"> Mobile Phone</h6>
-                                <h6 th:text="${contact.mobilePhoneNumber}">0882917831</h6>
+                                <input type="text" class="form-control" name="mobilePhoneNumber" th:value="${contact.mobilePhoneNumber}" minlength="1" maxlength="45" required>
                             </div>
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Address</h6>
-                                <h6 th:text="${contact.address}">Sofia</h6>
+                                <input type="text" class="form-control" name="address" th:value="${contact.address}" minlength="1" maxlength="125" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Company</h6>
-                                <h6 th:text="${contact.companyName}">Twitter</h6>
+                                <input type="text" class="form-control" name="companyName" th:value="${contact.companyName}" minlength="1" maxlength="45" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Email</h6>
-                                <h6 th:text="${contact.email}">petrov@mail.bg</h6>
+                                <input type="text" class="form-control" name="email" th:value="${contact.email}" minlength="1" maxlength="45" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <h6 class="text-primary">Fax</h6>
-                                <h6 th:text="${contact.faxNumber}">02873416</h6>
+                                <input type="text" class="form-control" name="faxNumber" th:value="${contact.faxNumber}" minlength="1" maxlength="45" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12 ">
                             <div class="form-group">
                                 <h6 class="text-primary">Comment</h6>
-                                <h6 th:text="${contact.comment}">Friend</h6>
+                                <input type="text" class="form-control" name="comment"  th:value="${contact.comment}" maxlength="255">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <h6 class="text-primary">Label</h6>
-                                <div class="container color-label">
-                                    <span class="badge" th:classappend="${contact.label}">
-                                        <h6 th:text="${contact.label}">Yellow</h6>
-                                    </span>
-                                </div>
+                                    <h6 class="text-primary">Label</h6>
+
+                                <select class="custom-select" name="label">
+                                    <option value="BLUE" class="bg-primary text-white" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).BLUE}">blue</option>
+                                    <option value="RED" class="bg-danger text-white" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).RED}">red</option>
+                                    <option value="YELLOW" class="bg-warning text-dark" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).YELLOW}">yellow</option>
+                                    <option value="GREEN" class="bg-success text-white" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).GREEN}">green</option>
+                                    <option value="GREY" class="bg-secondary text-white" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).GREY}">grey</option>
+                                    <option value="BLACK" class="bg-dark text-white" th:selected="${contact.label == T(nbu.java.model.pojo.Contact.Label).BLACK}">black</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12" th:each="additionalField : ${additionalFields}">
                             <div class="form-group">
-                                <h6 class="text-primary" th:text="${additionalField.title}">Additional field</h6>
-                                <h6 th:text="${additionalField.text}">information</h6>
+                                <label><h6 class="text-primary">Field name:</h6></label>
+                                <input type="text" class="form-control" name="title" th:value="${additionalField.title}">
+                                <label><h6 class="text-primary mt-2">Field text:</h6></label>
+                                <input type="text" class="form-control" name="text" th:value="${additionalField.text}">
                             </div>
                         </div>
 
                     </div>
                     <div>
 
-                        <a class="btn btn-success" th:href="@{/contacts/edit(id=${contact.id})}">Edit</a>
-                        <a class="btn btn-danger float-right" th:href="@{/contacts/delete(id=${contact.id})}">Delete</a>
+                        <input type="submit" class="btn btn-success float-right" value="Edit">
 
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

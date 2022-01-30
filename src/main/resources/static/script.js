@@ -3,17 +3,19 @@ var counter = 1;
 $(document).ready(function () {
 
     $("#addField").click(function () {
-        let name = prompt("Please enter the name of the new field:")
+        //let name = prompt("Please enter the name of the new field:")
 
-        if (name === null) return false;
+        //if (name === null) return false;
 
         let element = '<div class="col-md-6 col-sm-6 col-12 ">'
         element += '<div class="form-group">'
-        element += '<div class="form-group">'
-        element += `<label for="${name}"><h6 class="text-primary">${name}</h6></label>`
+        //element += `<label for="${name}"><h6 class="text-primary">${name}</h6></label>`
+
         element += '<button type="button" class="btn btn-close float-right remove">X</button>'
-        element += `<input type="text" class="form-control" id="${name}">`
-        element += '</div>'
+        element += '<label><h6 class="text-primary">Field name:</h6></label>'
+        element += `<input type="text" class="form-control" name="title" id="${name}" required>`
+        element += '<label><h6 class="text-primary mt-2">Field text:</h6></label>'
+        element += `<input type="text" class="form-control" name="text" id="${name}" required>`
         element += '</div>'
 
         if (counter > 4) {
