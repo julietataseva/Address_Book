@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -21,11 +22,13 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
+        model.addAttribute("registerRequestUserDTO", new RegisterRequestUserDTO());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(RegisterRequestUserDTO registerRequestUserDTO, BindingResult bindingResult, Model model) {
+    public String register(@Valid RegisterRequestUserDTO registerRequestUserDTO, BindingResult bindingResult, Model model) {
+
         userService.register(registerRequestUserDTO, bindingResult);
 
         if (bindingResult.hasErrors()){
@@ -36,26 +39,27 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("loginUserDTO", new LoginUserDTO());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(LoginUserDTO userDTO, BindingResult bindingResult, Model model, HttpSession session) {
-        ResponseUserDTO loginResponseUserDTO = userService.login(userDTO, bindingResult);
+    public String login(@Valid LoginUserDTO loginUserDTO, BindingResult bindingResult, Model model, HttpSession session) {
+        ResponseUserDTO loginResponseUserDTO = userService.login(loginUserDTO, bindingResult);
         if (bindingResult.hasErrors()){
             return "login";
         }
         sessionManager.loginUser(session, loginResponseUserDTO.getId());
 
-        return "redirect:/contactPage";
+        return "redirect:/contacts";
     }
 
     @PostMapping("/logout")
-    public SuccessDTO logout(HttpSession session) {
+    public String logout(HttpSession session) {
         sessionManager.validateLogged(session);
         sessionManager.logoutUser(session);
-        return new SuccessDTO("Logging out successful");
+        return "redirect:/login";
     }
 
     @PostMapping("/editAccount")

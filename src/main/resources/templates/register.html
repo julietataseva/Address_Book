@@ -19,38 +19,39 @@
     <div class="container registration-page-div rounded shadow-lg bg-white">
         <h1 class="text-center">Registration</h1>
         <!--/*@thymesVar id="registerRequestUserDTO" type="nbu.java.model.dto.RegisterRequestUserDTO"*/-->
-        <form action="#"  th:action="@{/register} "th:object="${registerRequestUserDTO}" method="post">
+        <form action="#"  th:action="@{/register}" th:object="${registerRequestUserDTO}" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" field="*{username}" name="username" id="username">
-                <p if="${#fields.hasErrors('username')}" errorclass="error" errors="*{username}" />
+                <input type="text" class="form-control" th:field="*{username}" name="username" id="username">
+                <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" field="*{email}" name="email" id="email">
-                <p if="${#fields.hasErrors('email')}" errorclass="error" errors="*{email}" />
+                <input type="email" class="form-control" th:field="*{email}" name="email" id="email">
+                <p th:if="${#fields.hasErrors('email')}"  th:errorclass="error" th:errors="*{email}" />
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" field="*{password}" name="password" id="password">
-                <p if="${#fields.hasErrors('password')}" errorclass="error" errors="*{password}" />
+                <input type="password" class="form-control" th:field="*{password}" name="password" id="password">
+                <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}" />
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" field="*{confirmPassword}" name="confirmPassword" id="confirmPassword">
-                <p if="${#fields.hasErrors('confirmPassword')}" errorclass="error" errors="*{confirmPassword}" />
+                <input type="password" class="form-control" th:field="*{confirmPassword}" name="confirmPassword" id="confirmPassword">
+                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="error" th:errors="*{confirmPassword}" />
             </div>
 
             <div class="form-group">
                 <label for="firstName">First name</label>
-                <input type="text" class="form-control" field="*{firstName}" name="firstName" id="firstName">
-                <p if="${#fields.hasErrors('firstName')}" errorclass="error" errors="*{firstName}" />
+                <input type="text" class="form-control" th:field="*{firstName}" name="firstName" id="firstName">
+                <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" />
+
             </div>
 
             <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input type="text" class="form-control" field="*{lastName}" name="lastName" id="lastName">
-                <p if="${#fields.hasErrors('lastName')}" errorclass="error" errors="*{lastName}" />
+                <input type="text" class="form-control" th:field="*{lastName}" name="lastName" id="lastName">
+                <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" />
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="registrationButton"> Register </button>
@@ -66,7 +67,7 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
 
-    -->
+
 </body>
 
 </html>
