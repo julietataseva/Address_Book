@@ -100,3 +100,34 @@ h1{
     max-width: 700px;
     margin-top: 3.5rem;
 }
+
+/* Colors */
+
+.YELLOW{
+    background-color: #f0d44d;
+}
+
+.RED{
+    background-color: #d9534f;
+    color: white;
+}
+
+.GREEN{
+    background-color: #5cb85c;
+}
+
+.BLUE{
+    background-color: #0275d8;
+    color: white;
+}
+
+.GREY{
+    background-color: rgba(0, 0, 0, 0.57);
+    color: white;
+}
+
+.BLACK{
+    background-color: #292b2c;
+    color: white;
+}
+
