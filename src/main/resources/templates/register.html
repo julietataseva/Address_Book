@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -18,35 +18,43 @@
 
     <div class="container registration-page-div rounded shadow-lg bg-white">
         <h1 class="text-center">Registration</h1>
-        <form>
+        <!--/*@thymesVar id="registerRequestUserDTO" type="nbu.java.model.dto.RegisterRequestUserDTO"*/-->
+        <form action="#"  th:action="@{/register} "th:object="${registerRequestUserDTO}" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" />
+                <input type="text" class="form-control" field="*{username}" name="username" id="username">
+                <p if="${#fields.hasErrors('username')}" errorclass="error" errors="*{username}" />
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" />
+                <input type="email" class="form-control" field="*{email}" name="email" id="email">
+                <p if="${#fields.hasErrors('email')}" errorclass="error" errors="*{email}" />
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" />
+                <input type="password" class="form-control" field="*{password}" name="password" id="password">
+                <p if="${#fields.hasErrors('password')}" errorclass="error" errors="*{password}" />
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPassword" />
+                <input type="password" class="form-control" field="*{confirmPassword}" name="confirmPassword" id="confirmPassword">
+                <p if="${#fields.hasErrors('confirmPassword')}" errorclass="error" errors="*{confirmPassword}" />
             </div>
 
             <div class="form-group">
                 <label for="firstName">First name</label>
-                <input type="text" class="form-control" id="firstName" />
+                <input type="text" class="form-control" field="*{firstName}" name="firstName" id="firstName">
+                <p if="${#fields.hasErrors('firstName')}" errorclass="error" errors="*{firstName}" />
             </div>
 
             <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input type="text" class="form-control" id="lastName" />
+                <input type="text" class="form-control" field="*{lastName}" name="lastName" id="lastName">
+                <p if="${#fields.hasErrors('lastName')}" errorclass="error" errors="*{lastName}" />
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="registrationButton"> Register </button>
+
         </form>
     </div>
 
