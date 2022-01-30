@@ -1,8 +1,8 @@
-package nbu.java.service;
+package nbu.java.services;
 
 import nbu.java.model.dto.*;
 import nbu.java.model.pojo.User;
-import nbu.java.model.repository.UserRepository;
+import nbu.java.repositories.UserRepository;
 import nbu.java.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +18,7 @@ public class UserService {
 
     public void register(RegisterRequestUserDTO userDTO, BindingResult bindingResult) {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
-            ObjectError error = new ObjectError("username", "Username already exists");
+            ObjectError error = new ObjectError("global", "Username already exists");
             bindingResult.addError(error);
         }
 

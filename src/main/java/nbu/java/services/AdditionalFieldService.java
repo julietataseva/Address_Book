@@ -1,7 +1,7 @@
 package nbu.java.services;
 
 import nbu.java.exceptions.NotFoundException;
-import nbu.java.model.pojo.dto.AdditionalFieldDTO;
+import nbu.java.model.dto.AdditionalFieldDTO;
 import nbu.java.repositories.AdditionalFieldRepository;
 import nbu.java.model.pojo.AdditionalField;
 import org.springframework.beans.factory.annotation.Autowired;

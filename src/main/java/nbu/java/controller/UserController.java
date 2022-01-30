@@ -2,12 +2,11 @@ package nbu.java.controller;
 
 import nbu.java.model.dto.*;
 import nbu.java.model.pojo.User;
-import nbu.java.service.UserService;
+import nbu.java.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;

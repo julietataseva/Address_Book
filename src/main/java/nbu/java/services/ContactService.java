@@ -2,13 +2,12 @@ package nbu.java.services;
 
 import nbu.java.exceptions.BadRequestException;
 import nbu.java.exceptions.NotFoundException;
-import nbu.java.model.pojo.dto.ContactDTO;
+import nbu.java.model.dto.ContactDTO;
 import nbu.java.repositories.ContactRepository;
 import nbu.java.model.pojo.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 

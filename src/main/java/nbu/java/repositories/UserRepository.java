@@ -1,4 +1,4 @@
-package nbu.java.model.repository;
+package nbu.java.repositories;
 
 import nbu.java.model.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;

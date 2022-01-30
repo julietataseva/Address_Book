@@ -1,4 +1,4 @@
-package nbu.java.model.pojo.dto;
+package nbu.java.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

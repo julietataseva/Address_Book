@@ -1,7 +1,7 @@
 package nbu.java.controller;
 
 import nbu.java.model.pojo.User;
-import nbu.java.model.repository.UserRepository;
+import nbu.java.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
