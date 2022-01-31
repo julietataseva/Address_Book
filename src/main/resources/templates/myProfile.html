@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -16,7 +16,8 @@
 
     <header th:insert="navigation :: header"></header>
 
-    <div class="container myProfile-page-div shadow-lg">
+    <!--/*@thymesVar id="responseUserDTO" type="nbu.java.model.dto.ResponseUserDTO"*/-->
+    <div class="container myProfile-page-div shadow-lg"  th:action="@{/myProfile.html}" th:object="${responseUserDTO}">
         <h1 class="text-center">My Profile</h1>
             <div class="card-body">
               <div class="row">
@@ -24,7 +25,7 @@
                   <h6>Username</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  ivanov
+                    <p th:field="*{username}" name="username" />
                 </div>
               </div>
               <hr>
@@ -33,7 +34,7 @@
                   <h6>Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  ivanov@mail.bg
+                    <p th:text="*{email}"  name="email"/>
                 </div>
               </div>
               <hr>
@@ -42,7 +43,7 @@
                   <h6>First Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  Ivan
+                    <p th:field="*{firstName}" />
                 </div>
               </div>
               <hr>
@@ -51,14 +52,14 @@
                   <h6>Last Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                   Ivanov
+                    <p th:field="*{lastName}" />
                 </div>
               </div>
               <hr>
               
               <div class="row">
                 <div class="col-sm-12">
-                  <a class="btn btn-primary float-right">Edit</a>
+                  <a href="/editMyProfile" class="btn btn-primary float-right">Edit</a>
                 </div>
               </div>
             </div>
