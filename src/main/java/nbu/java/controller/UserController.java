@@ -28,7 +28,6 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid RegisterRequestUserDTO registerRequestUserDTO, BindingResult bindingResult, Model model) {
-
         userService.register(registerRequestUserDTO, bindingResult);
 
         if (bindingResult.hasErrors()){
@@ -62,18 +61,43 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PostMapping("/editAccount")
-    public ResponseUserDTO edit(@RequestBody EditRequestUserDTO userDTO, HttpSession session, BindingResult bindingResult) {
-        User loggedUser = sessionManager.getLoggedUser(session);
-        return userService.editUser(userDTO, loggedUser, bindingResult);
+    @GetMapping("/editMyProfile")
+    public String edit(Model model) {
+        model.addAttribute("editRequestUserDTO", new EditRequestUserDTO());
+        return "editMyProfile";
     }
 
-    @DeleteMapping("/deleteAccount")
-    public SuccessDTO delete(HttpSession session) {
+    @PostMapping("/editMyProfile")
+    public String edit(@Valid EditRequestUserDTO editRequestUserDTO, HttpSession session, BindingResult bindingResult) {
+        User loggedUser = sessionManager.getLoggedUser(session);
+        userService.editUser(editRequestUserDTO, loggedUser, bindingResult);
+        return "editMyProfile";
+    }
+
+    @PostMapping("/deleteMyProfile")
+    public String delete(HttpSession session) {
         sessionManager.validateLogged(session);
         int userId = sessionManager.getLoggedUser(session).getId();
-        SuccessDTO response = userService.deleteUser(userId);
+        String response = userService.deleteUser(userId);
         sessionManager.logoutUser(session);
-        return response;
+        return "redirect:/login";
+    }
+
+    @GetMapping("/myProfile")
+    public String myProfile(Model model) {
+        model.addAttribute("responseUserDTO", new ResponseUserDTO());
+        return "myProfile";
+    }
+
+    @PostMapping("/myProfile")
+    public String myProfile(@Valid ResponseUserDTO responseUserDTO, HttpSession session, BindingResult bindingResult) {
+        sessionManager.validateLogged(session);
+        int userId = sessionManager.getLoggedUser(session).getId();
+        User user = userService.findById(userId);
+        responseUserDTO.setUsername(user.getUsername());
+        responseUserDTO.setEmail(user.getEmail());
+        responseUserDTO.setFirstName(user.getFirstName());
+        responseUserDTO.setLastName(user.getLastName());
+        return "myProfile";
     }
 }
