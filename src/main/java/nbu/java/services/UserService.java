@@ -28,10 +28,9 @@ public class UserService {
 
     public void register(RegisterRequestUserDTO userDTO, BindingResult bindingResult) {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
-            ObjectError error = new ObjectError("global", "Username already exists");
+            ObjectError error = new ObjectError("username", "Username already exists");
             bindingResult.addError(error);
         }
-
 
         String email = userDTO.getEmail();
         String validateEmailMessage = Validator.validateEmail(email);
@@ -39,7 +38,6 @@ public class UserService {
             ObjectError error = new ObjectError("email", validateEmailMessage);
             bindingResult.addError(error);
         }
-
 
         if (userRepository.findByEmail(email) != null) {
             ObjectError error = new ObjectError("email", "Email already exists");
@@ -53,7 +51,6 @@ public class UserService {
             ObjectError error = new ObjectError("password", validatePasswordMessage);
             bindingResult.addError(error);
         }
-
 
         String confirmPassword = userDTO.getConfirmPassword();
         String validateConfirmPasswordMessage = Validator.validateConfirmPassword(confirmPassword, initialPassword);
@@ -83,8 +80,6 @@ public class UserService {
             User user = new User(userDTO);
             userRepository.save(user);
         }
-
-
     }
 
     public ResponseUserDTO login(LoginUserDTO userDTO, BindingResult bindingResult) {
@@ -174,8 +169,8 @@ public class UserService {
         return new ResponseUserDTO(loggedUser);
     }
 
-    public SuccessDTO deleteUser(int id) {
+    public String deleteUser(int id) {
         userRepository.deleteById(id);
-        return new SuccessDTO("You have successfully deleted your account");
+        return "You have successfully deleted your account";
     }
 }
