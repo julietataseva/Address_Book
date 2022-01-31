@@ -11,10 +11,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    public User findById(int id){
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        return null;
+    }
 
     public void register(RegisterRequestUserDTO userDTO, BindingResult bindingResult) {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
@@ -22,12 +32,14 @@ public class UserService {
             bindingResult.addError(error);
         }
 
+
         String email = userDTO.getEmail();
         String validateEmailMessage = Validator.validateEmail(email);
         if (!validateEmailMessage.isEmpty()) {
             ObjectError error = new ObjectError("email", validateEmailMessage);
             bindingResult.addError(error);
         }
+
 
         if (userRepository.findByEmail(email) != null) {
             ObjectError error = new ObjectError("email", "Email already exists");
@@ -41,6 +53,7 @@ public class UserService {
             ObjectError error = new ObjectError("password", validatePasswordMessage);
             bindingResult.addError(error);
         }
+
 
         String confirmPassword = userDTO.getConfirmPassword();
         String validateConfirmPasswordMessage = Validator.validateConfirmPassword(confirmPassword, initialPassword);
@@ -70,6 +83,8 @@ public class UserService {
             User user = new User(userDTO);
             userRepository.save(user);
         }
+
+
     }
 
     public ResponseUserDTO login(LoginUserDTO userDTO, BindingResult bindingResult) {

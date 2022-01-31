@@ -35,7 +35,7 @@ public class UserController {
             return "register";
         }
 
-        return "redirect:/contactPage";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
