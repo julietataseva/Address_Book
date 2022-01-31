@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -16,71 +16,64 @@
 
     <header th:insert="navigation :: header"></header>
 
-    <div class="container editMyProfile-page-div shadow-lg">
+    <div class="container editMyProfile-page-div shadow-lg bg-white">
         <h1 class="text-center">Edit My Profile</h1>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>Username</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="text" class="form-control" id="username" value="ivanov">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>Email</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="text" class="form-control" id="email" value="ivanov@mail.bg">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>Password</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="password" class="form-control" id="password">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>Confirm Password</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="text" class="form-control" id="confrimPassword">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>First Name</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="text" class="form-control" id="firstName" value="Ivan">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-6">
-                  <h6>Last Name</h6>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  <input type="text" class="form-control" id="lastName" value="Ivanov">
-                </div>
-              </div>
-              <hr>
-              
-              <div class="row">
-                <div class="col-sm-12">
-                  <a class="btn btn-primary float-right">Edit</a>
-                </div>
-              </div>
-            </div>
+      <!--/*@thymesVar id="editRequestUserDTO" type="nbu.java.model.dto.EditRequestUserDTO"*/-->
+      <form action="#"  th:action="@{/editMyProfile}" th:object="${editRequestUserDTO}" method="post">
+          <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" th:field="*{username}" name="username" id="username">
+              <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
           </div>
+
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" th:field="*{email}" name="email" id="email">
+              <p th:if="${#fields.hasErrors('email')}"  th:errorclass="error" th:errors="*{email}" />
+          </div>
+
+          <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" class="form-control" th:field="*{currentPassword}" name="currentPassword" id="currentPassword">
+              <p th:if="${#fields.hasErrors('currentPassword')}" th:errorclass="error" th:errors="*{currentPassword}" />
+          </div>
+
+          <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" class="form-control" th:field="*{newPassword}" name="newPassword" id="newPassword">
+              <p th:if="${#fields.hasErrors('newPassword')}" th:errorclass="error" th:errors="*{newPassword}" />
+          </div>
+
+          <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" class="form-control" th:field="*{confirmPassword}" name="confirmPassword" id="confirmPassword">
+              <p th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="error" th:errors="*{confirmPassword}" />
+          </div>
+
+          <div class="form-group">
+              <label for="firstName">First name</label>
+              <input type="text" class="form-control" th:field="*{firstName}" name="firstName" id="firstName">
+              <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" />
+
+          </div>
+
+          <div class="form-group">
+              <label for="lastName">Last name</label>
+              <input type="text" class="form-control" th:field="*{lastName}" name="lastName" id="lastName">
+              <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="editButton"> Save </button>
+
+      </form>
+    </div>
+
+    <div class="container editMyProfile-page-div shadow-lg bg-white">
+        <h1 class="text-center">Delete My Profile</h1>
+        <form action="#"  th:action="@{/deleteMyProfile}" method="post">
+            <button type="submit" class="btn btn-primary btn-block" id="deleteButton"> Delete </button>
+        </form>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
