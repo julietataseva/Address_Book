@@ -114,6 +114,7 @@ h1{
 
 .GREEN{
     background-color: #5cb85c;
+    color: white;
 }
 
 .BLUE{
@@ -133,5 +134,10 @@ h1{
 
 .error{
     color: red;
+}
+
+.title{
+    margin: 20px 0px;
+    text-align: center;
 }
 

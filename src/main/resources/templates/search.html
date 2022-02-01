@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
+
+    <title>Address Book</title>
+
+</head>
+
+<body>
+
+<header th:insert="navigation :: header"></header>
+
+<div class="container contact-page-div">
+
+    <h2 class="title">Search</h2>
+
+    <form action="/contacts/search" method="post">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" value="allRecords" id="allRecords"><label for="allRecords">All records</label>
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" value="mostCommonLabels" id="mostCommonLabels">
+                <label for="mostCommonLabels">Most common labels</label>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" value="sameFirstNames" id="sameFirstNames">
+                <label for="sameFirstNames">Same first names</label>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" value="sameLastNames" id="sameLastNames">
+                <label for="sameLastNames">Same last names</label>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" value="searchByFirstAndLastName" id="searchByFirstAndLastName">
+                <label for="searchByFirstAndLastName">Search by first name and last name</label>
+                <div class="input-group" >
+                    <input type="text" name="firstName" class="form-control" placeholder="First name">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last name">
+                </div>
+            </label>
+        </div>
+
+
+
+        <input class="btn btn-primary float-right" type="submit" value="Search">
+    </form>
+
+
+
+    <table th:if="${contacts != null}" class="table table-hover table-light">
+        <thead class="bg-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col" class="d-none d-lg-table-cell">Company</th>
+            <th scope="col" class="d-none d-md-table-cell">Phone</th>
+            <th scope="col" class="d-none d-sm-table-cell">Email</th>
+            <th scope="col">Mobile Phone</th>
+            <th scope="col" class="d-none d-md-table-cell">Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="contact : ${contacts}">
+            <tr th:classappend="${contact.label}" th:onclick="|window.location.href='/contactPage?id=${contact.id}'|">
+                <th scope="row" th:text="${contactStat.index+1}">3</th>
+                <td th:text="${contact.firstName}">Peter</td>
+                <td th:text="${contact.lastName}">Petrov</td>
+                <td class="d-none d-lg-table-cell" th:text="${contact.companyName}">Microsoft</td>
+                <td class="d-none d-md-table-cell" th:text="${contact.phoneNumber}">028742135</td>
+                <td class="d-none d-sm-table-cell" th:text="${contact.email}">peter@mail.bg</td>
+                <td th:text="${contact.mobilePhoneNumber}">0877794849</td>
+                <td class="d-none d-md-table-cell" th:text="${contact.comment}">Comment</td>
+            </tr>
+        </th:block>
+
+        </tbody>
+
+    </table>
+
+
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

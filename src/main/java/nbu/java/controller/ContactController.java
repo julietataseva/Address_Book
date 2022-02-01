@@ -14,9 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.servlet.http.HttpSession;
+
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ContactController {
@@ -70,7 +74,13 @@ public class ContactController {
     public String showContacts(Model model, HttpSession httpSession) throws NotFoundException {
 
         if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
-        model.addAttribute("contacts", contactService.findByUserId((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
+        List<Contact> contacts = contactService.findByUserId((Integer) httpSession.getAttribute("LOGGED_USER_ID")).
+                stream().
+                sorted(Comparator.comparing(Contact::getFirstName).
+                        thenComparing(Contact::getLastName)).
+                collect(Collectors.toList());
+
+        model.addAttribute("contacts", contacts);
         return "contacts";
     }
 
@@ -136,8 +146,27 @@ public class ContactController {
     }
 
     @GetMapping("/contacts/search")
-    public String deleteContact()  {
-
+    public String searchContacts()  {
         return "search";
     }
+
+    @PostMapping("/contacts/search")
+    public String search(@RequestParam(value="radio", required=false) String choice,
+                         @RequestParam(value="firstName", required=false) String firstName,
+                         @RequestParam(value="lastName", required=false) String lastName,
+                         Model model)  {
+
+
+        if (choice.equals("allRecords")) model.addAttribute("contacts", contactService.findAll());
+        else if(choice.equals("searchByFirstAndLastName"))
+            model.addAttribute("contacts", contactService.findByFirstNameAndLastName(firstName, lastName));
+        return "search";
+    }
+
+    @GetMapping("/contacts/download")
+    public String getDownloadPage(HttpSession httpSession) {
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
+        return "downloadContacts";
+    }
+
 }
