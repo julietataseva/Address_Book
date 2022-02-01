@@ -25,7 +25,7 @@
                   <h6>Username</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <p th:field="*{username}" name="username" />
+                    <p th:text="*{username}"/>
                 </div>
               </div>
               <hr>
@@ -34,7 +34,7 @@
                   <h6>Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <p th:text="*{email}"  name="email"/>
+                    <p th:text="*{email}"/>
                 </div>
               </div>
               <hr>
@@ -43,7 +43,7 @@
                   <h6>First Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <p th:field="*{firstName}" />
+                    <p th:text="*{firstName}"/>
                 </div>
               </div>
               <hr>
@@ -52,7 +52,7 @@
                   <h6>Last Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <p th:field="*{lastName}" />
+                    <p th:text="*{lastName}" />
                 </div>
               </div>
               <hr>
