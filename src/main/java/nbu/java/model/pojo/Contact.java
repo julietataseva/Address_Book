@@ -38,6 +38,6 @@ public class Contact {
     private User user;
 
     public enum Label {
-        GREEN, RED, YELLOW, BLUE, GREY, BLACK
+        WHITE, GREEN, RED, YELLOW, BLUE, GREY, BLACK
     }
 }
