@@ -84,20 +84,16 @@ public class UserController {
     }
 
     @GetMapping("/myProfile")
-    public String myProfile(Model model) {
-        model.addAttribute("responseUserDTO", new ResponseUserDTO());
-        return "myProfile";
-    }
-
-    @PostMapping("/myProfile")
-    public String myProfile(@Valid ResponseUserDTO responseUserDTO, HttpSession session, BindingResult bindingResult) {
+    public String myProfile(Model model, HttpSession session) {
         sessionManager.validateLogged(session);
         int userId = sessionManager.getLoggedUser(session).getId();
         User user = userService.findById(userId);
+        ResponseUserDTO responseUserDTO = new ResponseUserDTO();
         responseUserDTO.setUsername(user.getUsername());
         responseUserDTO.setEmail(user.getEmail());
         responseUserDTO.setFirstName(user.getFirstName());
         responseUserDTO.setLastName(user.getLastName());
+        model.addAttribute("responseUserDTO", responseUserDTO);
         return "myProfile";
     }
 }
