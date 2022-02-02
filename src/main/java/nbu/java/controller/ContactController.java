@@ -146,7 +146,8 @@ public class ContactController {
     }
 
     @GetMapping("/contacts/search")
-    public String searchContacts()  {
+    public String searchContacts(HttpSession httpSession)  {
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
         return "search";
     }
 
@@ -156,10 +157,12 @@ public class ContactController {
                          @RequestParam(value="lastName", required=false) String lastName,
                          Model model)  {
 
+        if (choice == null) return "search";
 
         if (choice.equals("allRecords")) model.addAttribute("contacts", contactService.findAll());
         else if(choice.equals("searchByFirstAndLastName"))
             model.addAttribute("contacts", contactService.findByFirstNameAndLastName(firstName, lastName));
+
         return "search";
     }
 

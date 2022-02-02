@@ -14,8 +14,11 @@
             <li class="nav-item" th:if="${session.LOGGED_USER_ID != null}">
                 <a class="nav-link" href="/contacts">My Contacts</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Search</a>
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID != null}">
+                <a class="nav-link" href="/contacts/search">Search</a>
+            </li>
+            <li class="nav-item" th:if="${session.LOGGED_USER_ID != null}">
+                <a class="nav-link" href="/contacts/download">Download contacts</a>
             </li>
 
         </ul>

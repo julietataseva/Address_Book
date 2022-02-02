@@ -28,7 +28,7 @@ $(document).ready(function () {
 });
 
 $(document).on('click', ".remove", function (e) {
-    $(this).parent().parent().parent().remove();
+    $(this).parent().parent().remove();
     counter--;
 });
 

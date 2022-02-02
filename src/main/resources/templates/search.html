@@ -15,7 +15,7 @@
 
 <header th:insert="navigation :: header"></header>
 
-<div class="container contact-page-div">
+<div class="container contact-page-div mx-2 mx-sm-2 mx-md-auto mx-lg-auto mx-xl-auto">
 
     <h2 class="title">Search</h2>
 
@@ -50,19 +50,15 @@
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="radio" value="searchByFirstAndLastName" id="searchByFirstAndLastName">
                 <label for="searchByFirstAndLastName">Search by first name and last name</label>
-                <div class="input-group" >
+                <div class="input-group" id="searchByFirstAndLastNameForm">
                     <input type="text" name="firstName" class="form-control" placeholder="First name">
                     <input type="text" name="lastName" class="form-control" placeholder="Last name">
                 </div>
             </label>
         </div>
 
-
-
-        <input class="btn btn-primary float-right" type="submit" value="Search">
+        <input class="btn btn-primary btn-block mt-2 col-11 col-sm-11 col-md-12 col-lg-12 col-xl-12" type="submit" value="Search">
     </form>
-
-
 
     <table th:if="${contacts != null}" class="table table-hover table-light">
         <thead class="bg-light">
