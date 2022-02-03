@@ -51,10 +51,10 @@ public class ContactController {
 
         if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
 
-        contact.setUser(userService.findById((Integer)httpSession.getAttribute("LOGGED_USER_ID")));
+        contact.setUser(userService.findById((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
         contactService.addContact(contact);
 
-        if (title != null  && text != null){
+        if (title != null && text != null) {
             List<String> titles = Arrays.asList(title);
             List<String> texts = Arrays.asList(text);
 
@@ -89,7 +89,8 @@ public class ContactController {
 
         Contact contact = contactService.findById(Integer.parseInt(id));
         System.out.println(httpSession.getAttribute("LOGGED_USER_ID"));
-        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId()) return "redirect:/contacts";
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId())
+            return "redirect:/contacts";
         model.addAttribute("contact", contact);
         model.addAttribute("additionalFields", additionalFieldService.findByContactId(Integer.parseInt(id)));
         return "contactPage";
@@ -99,7 +100,8 @@ public class ContactController {
     public String showEditPage(@RequestParam String id, Model model, HttpSession httpSession) throws NotFoundException {
 
         Contact contact = contactService.findById(Integer.parseInt(id));
-        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId()) return "redirect:/contacts";
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId())
+            return "redirect:/contacts";
         model.addAttribute("contact", contact);
         model.addAttribute("additionalFields", additionalFieldService.findByContactId(Integer.parseInt(id)));
         return "editContactPage";
@@ -111,9 +113,10 @@ public class ContactController {
                               @RequestParam(value = "text", required = false) String[] text,
                               HttpSession httpSession) throws NotFoundException {
         Contact contact = contactService.findById(Integer.parseInt(id));
-        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId()) return "redirect:/contacts";
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId())
+            return "redirect:/contacts";
 
-        if (title != null  && text != null) {
+        if (title != null && text != null) {
             List<String> titles = Arrays.asList(title);
             List<String> texts = Arrays.asList(text);
 
@@ -135,10 +138,10 @@ public class ContactController {
     public String deleteContact(@RequestParam String id, HttpSession httpSession) throws NotFoundException {
         int contactId = Integer.parseInt(id);
         Contact contact = contactService.findById(contactId);
-        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId()) return "redirect:/contacts";
+        if (httpSession.getAttribute("LOGGED_USER_ID") == null || (Integer) httpSession.getAttribute("LOGGED_USER_ID") != contact.getUser().getId())
+            return "redirect:/contacts";
         List<AdditionalField> additionalFields = additionalFieldService.findByContactId(contactId);
-        for (AdditionalField additionalField : additionalFields)
-        {
+        for (AdditionalField additionalField : additionalFields) {
             additionalFieldService.deleteAdditionalField(additionalField);
         }
         contactService.deleteContact(contact);
@@ -146,22 +149,26 @@ public class ContactController {
     }
 
     @GetMapping("/contacts/search")
-    public String searchContacts(HttpSession httpSession)  {
+    public String searchContacts(HttpSession httpSession) {
         if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
         return "search";
     }
 
     @PostMapping("/contacts/search")
-    public String search(@RequestParam(value="radio", required=false) String choice,
-                         @RequestParam(value="firstName", required=false) String firstName,
-                         @RequestParam(value="lastName", required=false) String lastName,
-                         Model model)  {
+    public String search(@RequestParam(value = "radio", required = false) String choice,
+                         @RequestParam(value = "firstName", required = false) String firstName,
+                         @RequestParam(value = "lastName", required = false) String lastName,
+                         Model model, HttpSession httpSession) {
 
         if (choice == null) return "search";
 
-        if (choice.equals("allRecords")) model.addAttribute("contacts", contactService.findAll());
-        else if(choice.equals("searchByFirstAndLastName"))
+        if (choice.equals("allRecords")) {
+            model.addAttribute("contacts", contactService.findAll());
+        } else if (choice.equals("searchByFirstAndLastName")) {
             model.addAttribute("contacts", contactService.findByFirstNameAndLastName(firstName, lastName));
+        } else if (choice.equals("mostCommonLabels")) {
+            model.addAttribute("contacts", contactService.getContactsWithMostCommonLabels((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
+        }
 
         return "search";
     }
@@ -171,5 +178,4 @@ public class ContactController {
         if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
         return "downloadContacts";
     }
-
 }
