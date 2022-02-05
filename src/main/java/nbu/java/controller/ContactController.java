@@ -163,11 +163,15 @@ public class ContactController {
         if (choice == null) return "search";
 
         if (choice.equals("allRecords")) {
-            model.addAttribute("contacts", contactService.findAll());
+            model.addAttribute("contacts", contactService.findByUserId((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
         } else if (choice.equals("searchByFirstAndLastName")) {
-            model.addAttribute("contacts", contactService.findByFirstNameAndLastName(firstName, lastName));
+            model.addAttribute("contacts", contactService.findByFirstNameAndLastNameAndUserId(firstName, lastName,(Integer) httpSession.getAttribute("LOGGED_USER_ID")));
         } else if (choice.equals("mostCommonLabels")) {
             model.addAttribute("contacts", contactService.getContactsWithMostCommonLabels((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
+        } else if (choice.equals("sameFirstNames")) {
+            model.addAttribute("contacts", contactService.findBySameFirstNameAndDistinctLastName((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
+        } else if (choice.equals("sameLastNames")) {
+            model.addAttribute("contacts", contactService.findBySameLastNameAndDistinctFirstName((Integer) httpSession.getAttribute("LOGGED_USER_ID")));
         }
 
         return "search";

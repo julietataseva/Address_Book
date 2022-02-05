@@ -3,6 +3,7 @@ package nbu.java.services;
 import nbu.java.exceptions.BadRequestException;
 import nbu.java.exceptions.NotFoundException;
 import nbu.java.model.dto.ContactDTO;
+import nbu.java.model.pojo.User;
 import nbu.java.repositories.ContactRepository;
 import nbu.java.model.pojo.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,21 +46,21 @@ public class ContactService {
     }
 
     @Transactional
-    public List<Contact> findByFirstNameAndLastName(String firstName, String lastName) {
+    public List<Contact> findByFirstNameAndLastNameAndUserId(String firstName, String lastName, int id) {
 
-        return contactRepository.findByFirstNameAndLastName(firstName, lastName);
+        return contactRepository.findByFirstNameAndLastNameAndUserId(firstName, lastName, id);
     }
 
     @Transactional
-    public List<Contact> findBySameFirstNameAndDistinctLastName() {
+    public List<Contact> findBySameFirstNameAndDistinctLastName(int id) {
 
-        return contactRepository.findBySameFirstNameAndDistinctLastName();
+        return contactRepository.findBySameFirstNameAndDistinctLastName(id);
     }
 
     @Transactional
-    public List<Contact> findBySameLastNameAndDistinctFirstName() {
+    public List<Contact> findBySameLastNameAndDistinctFirstName(int id) {
 
-        return contactRepository.findBySameLastNameAndDistinctFirstName();
+        return contactRepository.findBySameLastNameAndDistinctFirstName(id);
     }
 
     @Transactional

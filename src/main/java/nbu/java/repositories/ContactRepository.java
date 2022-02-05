@@ -1,8 +1,10 @@
 package nbu.java.repositories;
 
 import nbu.java.model.pojo.Contact;
+import nbu.java.model.pojo.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -13,11 +15,13 @@ public interface ContactRepository<C> extends CrudRepository<Contact,Long> {
 
     Contact findById(int id);
 
-    List<Contact> findByFirstNameAndLastName(String firstName, String lastName);
+    List<Contact> findByFirstNameAndLastNameAndUserId(String firstName, String lastName, int id);
 
-   @Query("SELECT c FROM Contact c WHERE c.firstName IN (SELECT firstName FROM Contact GROUP BY firstName HAVING COUNT(distinct lastName) = 1)")
-   List<Contact> findBySameFirstNameAndDistinctLastName();
+   @Query(value = "Select * from (SELECT * FROM contacts WHERE user_id = :id) as t Where first_name IN " +
+           "(SELECT first_name FROM (SELECT * FROM contacts WHERE user_id = :id) as t GROUP BY first_name HAVING COUNT(distinct last_name) > 1)", nativeQuery = true)
+   List<Contact> findBySameFirstNameAndDistinctLastName(int id);
 
-    @Query("SELECT c FROM Contact c WHERE c.lastName IN (SELECT lastName FROM Contact GROUP BY lastName HAVING COUNT(distinct firstName) = 1)")
-    List<Contact> findBySameLastNameAndDistinctFirstName();
+    @Query(value = "Select * from (SELECT * FROM contacts WHERE user_id = :id) as t Where last_name IN " +
+            "(SELECT last_name FROM (SELECT * FROM contacts WHERE user_id = :id) as t GROUP BY last_name HAVING COUNT(distinct first_name) > 1)", nativeQuery = true)
+    List<Contact> findBySameLastNameAndDistinctFirstName(int id);
 }
