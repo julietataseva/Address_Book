@@ -19,31 +19,36 @@
 
     <h2 class="title">Download Contacts</h2>
 
-    <p>Choose data type:</p>
+    <form action="/contacts/download" method="post">
+
+        <p>Choose data type:</p>
         <div class="form-check">
             <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" value="allRecords" id="allRecords"><label for="allRecords">.json</label>
+                <input type="radio" class="form-check-input" name="radio" value="json" id="json">
+                <label for="json">.json</label>
             </label>
         </div>
         <div class="form-check">
             <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" value="mostCommonLabels" id="mostCommonLabels">
-                <label for="mostCommonLabels">.excel</label>
+                <input type="radio" class="form-check-input" name="radio" value="excel" id="excel">
+                <label for="excel">.excel</label>
             </label>
         </div>
 
         <div class="form-check">
             <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" value="sameFirstNames" id="sameFirstNames">
-                <label for="sameFirstNames">.csv</label>
+                <input type="radio" class="form-check-input" name="radio" value="csv" id="csv">
+                <label for="csv">.csv</label>
             </label>
         </div>
 
         <div class="text-center">
             <input class="btn btn-success" type="submit" value="Download">
         </div>
+    </form>
 
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
