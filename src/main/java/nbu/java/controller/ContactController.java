@@ -176,10 +176,4 @@ public class ContactController {
 
         return "search";
     }
-
-    @GetMapping("/contacts/download")
-    public String getDownloadPage(HttpSession httpSession) {
-        if (httpSession.getAttribute("LOGGED_USER_ID") == null) return "redirect:/login";
-        return "downloadContacts";
-    }
 }
