@@ -40,7 +40,10 @@ public class DownloadController {
         User loggedUser = sessionManager.getLoggedUser(httpSession);
         if (choice.equals("json")) {
             return downloadService.exportToJson(loggedUser.getId());
-        } else {
+        } else if (choice.equals("csv")) {
+            return downloadService.exportToCsv(loggedUser.getId());
+        }
+        else {
             return new ResponseEntity<byte[]>(headers, HttpStatus.FOUND);
         }
     }
