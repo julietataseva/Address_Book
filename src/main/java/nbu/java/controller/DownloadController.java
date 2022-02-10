@@ -42,6 +42,8 @@ public class DownloadController {
             return downloadService.exportToJson(loggedUser.getId());
         } else if (choice.equals("csv")) {
             return downloadService.exportToCsv(loggedUser.getId());
+        } else if (choice.equals("excel")) {
+            return downloadService.exportToExcel(loggedUser.getId());
         }
         else {
             return new ResponseEntity<byte[]>(headers, HttpStatus.FOUND);
