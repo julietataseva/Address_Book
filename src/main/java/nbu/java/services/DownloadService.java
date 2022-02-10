@@ -6,6 +6,10 @@ import nbu.java.model.pojo.Contact;
 import nbu.java.repositories.ContactRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -64,5 +68,69 @@ public class DownloadService {
                 .contentType(MediaType.valueOf("text/csv"))
                 .body(resource);
 
+    }
+
+    public ResponseEntity exportToExcel(int userId)  {
+        List<Contact> contacts = contactRepository.findByUserId(userId);
+
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+
+        XSSFSheet spreadsheet = workbook.createSheet("contacts");
+
+        int rownum = 0;
+        for (Contact contact : contacts)
+        {
+            Row row = spreadsheet.createRow(rownum++);
+            createRow(contact, row);
+        }
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            workbook.write(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=contacts.xlsx")
+                .contentType(MediaType.valueOf("text/xlsx"))
+                .body(new InputStreamResource(in));
+
+    }
+
+    private void createRow(Contact contact, Row row) {
+        Cell cell = row.createCell(0);
+        cell.setCellValue(contact.getFirstName());
+
+        cell = row.createCell(1);
+        cell.setCellValue(contact.getLastName());
+
+        cell = row.createCell(2);
+        cell.setCellValue(contact.getCompanyName());
+
+        cell = row.createCell(3);
+        cell.setCellValue(contact.getAddress());
+
+        cell = row.createCell(4);
+        cell.setCellValue(contact.getPhoneNumber());
+
+        cell = row.createCell(5);
+        cell.setCellValue(contact.getEmail());
+
+        cell = row.createCell(6);
+        cell.setCellValue(contact.getFaxNumber());
+
+        cell = row.createCell(7);
+        cell.setCellValue(contact.getMobilePhoneNumber());
+
+        cell = row.createCell(8);
+        cell.setCellValue(contact.getComment());
+
+        cell = row.createCell(9);
+        cell.setCellValue(contact.getLabel().toString());
     }
 }
