@@ -23,44 +23,40 @@
           <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" th:field="*{username}" name="username" id="username">
-              <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
           </div>
 
           <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" th:field="*{email}" name="email" id="email">
-              <p th:if="${#fields.hasErrors('email')}"  th:errorclass="error" th:errors="*{email}" />
           </div>
 
           <div class="form-group">
               <label for="currentPassword">Current Password</label>
               <input type="password" class="form-control" th:field="*{currentPassword}" name="currentPassword" id="currentPassword">
-              <p th:if="${#fields.hasErrors('currentPassword')}" th:errorclass="error" th:errors="*{currentPassword}" />
           </div>
 
           <div class="form-group">
               <label for="newPassword">New Password</label>
               <input type="password" class="form-control" th:field="*{newPassword}" name="newPassword" id="newPassword">
-              <p th:if="${#fields.hasErrors('newPassword')}" th:errorclass="error" th:errors="*{newPassword}" />
           </div>
 
           <div class="form-group">
               <label for="confirmPassword">Confirm Password</label>
               <input type="password" class="form-control" th:field="*{confirmPassword}" name="confirmPassword" id="confirmPassword">
-              <p th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="error" th:errors="*{confirmPassword}" />
           </div>
 
           <div class="form-group">
               <label for="firstName">First name</label>
               <input type="text" class="form-control" th:field="*{firstName}" name="firstName" id="firstName">
-              <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" />
-
           </div>
 
           <div class="form-group">
               <label for="lastName">Last name</label>
               <input type="text" class="form-control" th:field="*{lastName}" name="lastName" id="lastName">
-              <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" />
+          </div>
+
+          <div>
+              <p th:if="${#fields.hasErrors('global')}" th:errorclass="error" th:errors="*{global}" />
           </div>
 
           <button type="submit" class="btn btn-primary btn-block" id="editButton"> Save </button>

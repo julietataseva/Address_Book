@@ -28,19 +28,19 @@ public class UserService {
 
     public void register(RegisterRequestUserDTO userDTO, BindingResult bindingResult) {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
-            ObjectError error = new ObjectError("username", "Username already exists");
+            ObjectError error = new ObjectError("global", "Username already exists");
             bindingResult.addError(error);
         }
 
         String email = userDTO.getEmail();
         String validateEmailMessage = Validator.validateEmail(email);
         if (!validateEmailMessage.isEmpty()) {
-            ObjectError error = new ObjectError("email", validateEmailMessage);
+            ObjectError error = new ObjectError("global", validateEmailMessage);
             bindingResult.addError(error);
         }
 
         if (userRepository.findByEmail(email) != null) {
-            ObjectError error = new ObjectError("email", "Email already exists");
+            ObjectError error = new ObjectError("global", "Email already exists");
             bindingResult.addError(error);
         }
 
@@ -48,14 +48,14 @@ public class UserService {
         String initialPassword = userDTO.getPassword();
         String validatePasswordMessage = Validator.validatePassword(initialPassword);
         if (!validatePasswordMessage.isEmpty()) {
-            ObjectError error = new ObjectError("password", validatePasswordMessage);
+            ObjectError error = new ObjectError("global", validatePasswordMessage);
             bindingResult.addError(error);
         }
 
         String confirmPassword = userDTO.getConfirmPassword();
         String validateConfirmPasswordMessage = Validator.validateConfirmPassword(confirmPassword, initialPassword);
         if (!validateConfirmPasswordMessage.isEmpty()) {
-            ObjectError error = new ObjectError("confirmPassword", validateConfirmPasswordMessage);
+            ObjectError error = new ObjectError("global", validateConfirmPasswordMessage);
             bindingResult.addError(error);
         }
 
@@ -65,14 +65,14 @@ public class UserService {
         String firstName = userDTO.getFirstName();
         String validateFirstNameMessage = Validator.validateName(firstName);
         if (!validateFirstNameMessage.isEmpty()) {
-            ObjectError error = new ObjectError("firstName", validateFirstNameMessage);
+            ObjectError error = new ObjectError("global", validateFirstNameMessage);
             bindingResult.addError(error);
         }
 
         String lastName = userDTO.getLastName();
         String validateLastNameMessage = Validator.validateName(lastName);
         if (!validateLastNameMessage.isEmpty()) {
-            ObjectError error = new ObjectError("lastName", validateLastNameMessage);
+            ObjectError error = new ObjectError("global", validateLastNameMessage);
             bindingResult.addError(error);
         }
 
@@ -85,14 +85,14 @@ public class UserService {
     public ResponseUserDTO login(LoginUserDTO userDTO, BindingResult bindingResult) {
         String message = "Wrong credentials!";
         if (userDTO.getUsername() == null || userDTO.getPassword() == null) {
-            ObjectError error = new ObjectError("credentials", message);
+            ObjectError error = new ObjectError("global", message);
             bindingResult.addError(error);
         }
 
         User user = userRepository.findByUsername(userDTO.getUsername());
         if (user == null) {
             if (!bindingResult.hasErrors()) {
-                ObjectError error = new ObjectError("credentials", message);
+                ObjectError error = new ObjectError("global", message);
                 bindingResult.addError(error);
             }
         } else {
@@ -101,7 +101,7 @@ public class UserService {
                 return new ResponseUserDTO(user);
             } else {
                 if (!bindingResult.hasErrors()) {
-                    ObjectError error = new ObjectError("credentials", message);
+                    ObjectError error = new ObjectError("global", message);
                     bindingResult.addError(error);
                 }
             }
@@ -111,8 +111,8 @@ public class UserService {
 
     public ResponseUserDTO editUser(EditRequestUserDTO userDTO, User loggedUser, BindingResult bindingResult) {
         String newUsername = userDTO.getUsername();
-        if (newUsername != null && userRepository.findByUsername(newUsername) != null) {
-            ObjectError error = new ObjectError("username", "Username already exists");
+        if (newUsername != null && (!newUsername.isEmpty()) && userRepository.findByUsername(newUsername) != null) {
+            ObjectError error = new ObjectError("global", "Username already exists");
             bindingResult.addError(error);
         } else {
             loggedUser.setUsername(newUsername);
@@ -121,11 +121,11 @@ public class UserService {
         String newEmail = userDTO.getEmail();
         String validateEmailMessage = Validator.validateEmail(newEmail);
         if (!validateEmailMessage.isEmpty()) {
-            ObjectError error = new ObjectError("email", validateEmailMessage);
+            ObjectError error = new ObjectError("global", validateEmailMessage);
             bindingResult.addError(error);
         } else if (newEmail != null) {
             if (userRepository.findByEmail(newEmail) != null) {
-                ObjectError error = new ObjectError("email", "Email already exists!");
+                ObjectError error = new ObjectError("global", "Email already exists!");
                 bindingResult.addError(error);
             } else {
                 loggedUser.setEmail(newEmail);
@@ -135,7 +135,7 @@ public class UserService {
         String currentPassword = userDTO.getCurrentPassword();
         String validatePasswordMessage = Validator.validateEnteredAndActualPasswords(currentPassword, loggedUser);
         if (!validatePasswordMessage.isEmpty()) {
-            ObjectError error = new ObjectError("password", validatePasswordMessage);
+            ObjectError error = new ObjectError("global", validatePasswordMessage);
             bindingResult.addError(error);
         }
 
@@ -143,14 +143,14 @@ public class UserService {
         String confirmPassword = userDTO.getConfirmPassword();
         String validateNewAndConfirmPasswordMessage = Validator.validateNewAndConfirmPassword(newPassword, currentPassword, confirmPassword, loggedUser);;
         if (!validateNewAndConfirmPasswordMessage.isEmpty()) {
-            ObjectError error = new ObjectError("confirmPassword", validateNewAndConfirmPasswordMessage);
+            ObjectError error = new ObjectError("global", validateNewAndConfirmPasswordMessage);
             bindingResult.addError(error);
         }
 
         String newFirstName = userDTO.getFirstName();
         String validateFirstNameMessage = Validator.validateName(newFirstName);
         if (!validateFirstNameMessage.isEmpty()) {
-            ObjectError error = new ObjectError("firstName", validateFirstNameMessage);
+            ObjectError error = new ObjectError("global", validateFirstNameMessage);
             bindingResult.addError(error);
         } else {
             loggedUser.setFirstName(newFirstName);
@@ -159,7 +159,7 @@ public class UserService {
         String newLastName = userDTO.getLastName();
         String validateLastNameMessage = Validator.validateName(newLastName);
         if (!validateLastNameMessage.isEmpty()) {
-            ObjectError error = new ObjectError("lastName", validateLastNameMessage);
+            ObjectError error = new ObjectError("global", validateLastNameMessage);
             bindingResult.addError(error);
         } else {
             loggedUser.setLastName(newLastName);
